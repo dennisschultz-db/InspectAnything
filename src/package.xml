@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>SimpleLightningInspection</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>InspectionEvent</members>
+        <members>LightningDataTable</members>
+        <members>LightningInspectionQuestion</members>
+        <members>LightningInspectionQuestionList</members>
+        <members>SingleFieldDisplayer</members>
+        <members>LightningDataTable</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <types>
+        <members>Inspection_Step__c</members>
+        <members>Inspection__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Inspection__c</members>
+        <members>Lightning_Inspection</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <name>Flow</name>
+    </types>
+    <types>
+        <members>PRL_lodash</members>
+        <name>StaticResource</name>
+    </types>
+    <version>34.0</version>
+</Package>
