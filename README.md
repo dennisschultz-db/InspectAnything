@@ -20,4 +20,4 @@ LightningInspectionQuestionList -- the main component that you'll interact with.
 * InspectionEvent : thrown by the Question, handled by the QuesitonList to let it recalculate the % complete
 
 ###Classes
-LightningInspection -- apex backend for the components
+SimpleLightningInspection -- apex backend for the components
