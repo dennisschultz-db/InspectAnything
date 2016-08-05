@@ -1,0 +1,62 @@
+<aura:component controller="SimpleLightningInspection">
+    <aura:attribute name="question" type="Inspection_Step__c" required="true"/> 
+    <!-- <aura:attribute name="actionDescribe" type="object" required="true" /> -->
+    <aura:attribute name="questionDescribe" type="object" required="true"/>
+    
+    <aura:attribute name="buttonList" type="object[]" />
+    <aura:attribute name="fieldType" type="string" />
+    <aura:attribute name="response" type="string" />
+<!--     <aura:attribute name="actionFieldDescribe" type="object" />
+    <aura:attribute name="newAction" type="object"/>
+    <aura:attribute name="action" type="boolean" default="false"/> --> <!--show/hide toggle-->
+    <aura:attribute name="feedLabel" type="string" default="Photo Feed"/>
+    
+    <ltng:require scripts="{!$Resource.lodash}" afterScriptsLoaded="{!c.doInit}" />     
+    <aura:registerEvent name="InspectionEvent" type="c:InspectionEvent"/>
+    
+    <div class="slds">
+        <div class="slds-card slds-m-top--small">
+            <div class="{!v.panelStyle}">
+                <h2>{!v.question.Step_Number__c}. {!v.question.Name}</h2>
+            </div>
+            <div class="slds-card__body slds-tile">
+                <div>
+                    <!-- if the field is a picklist-->
+                    <aura:if isTrue="{!v.fieldType == 'picklist'}">
+                        <div class="slds-button-group slds-float--right" role="group">
+                            <aura:iteration items="{!v.buttonList}" var="button">
+                                <button type="button" title="{!button.value}" onclick="{!c.setResponse}" class="{!v.response == button.label ? 'slds-button slds-button--brand' : 'slds-button slds-button--neutral'}">{!button.label}</button>        
+                            </aura:iteration>
+                        </div>
+                    </aura:if>
+                    
+                    <div class="slds-clearfix">
+                        <div>
+                        	<aura:unescapedHtml value="{!v.question.Instructions__c}"  /> 
+                        </div>                   
+                    </div>
+                    
+                    <!-- if it's just text-->
+                    <aura:if isTrue="{!v.fieldType != 'picklist'}">
+                        <ui:inputTextArea class="slds-textarea" value="{!v.question.Response_Text__c}" rows="2" placeholder="Response" updateOn="keyup" blur="{!c.setTextResponse}"/>              
+                    </aura:if>
+                    
+                    <aura:renderIf isTrue="{!and(v.question.Rating__c == 'No', v.question.If_No_Instructions__c!= null)}">
+                        <div class="slds-box slds-theme--warning">
+                            <aura:unescapedHtml value="{!v.question.If_No_Instructions__c}"  />
+                        </div>
+                    </aura:renderIf>
+                </div>
+                
+                <aura:If isTrue="{!v.fieldType == 'picklist'}">
+                    <ui:inputTextArea class="slds-textarea" value="{!v.question.Comments__c}" rows="2" placeholder="Comments" updateOn="keyup" blur="{!c.setComment}"/>
+                </aura:If>
+                <!--show this outside of action context-->
+                <div class="slds-button-group" role="group">
+                    <button type="button" class="slds-button slds-button--neutral" onclick="{!c.navFeed}">{!v.feedLabel}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</aura:component>

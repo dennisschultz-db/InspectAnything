@@ -1,0 +1,46 @@
+<aura:component controller="PowerRelatedListCtrl">
+    
+    <ltng:require scripts="{!$Resource.PRL_lodash}" afterScriptsLoaded="{!c.doInit}"/>
+
+    <!--attributes set by parent-->
+    <!--filtering is handled above my pay grade.  I just show whatever the results are -->
+    <aura:attribute name="results" type="object[]" required="true"/>
+    <aura:attribute name="displayFields" type="string" required="true" />
+    <aura:attribute name="editableFields" type="string" required="false" default="Phone"/>
+    <aura:attribute name="sObjectType" type="string" required="true" />
+    
+    <!--private attributes -->
+    <aura:attribute name="sortState" type="object" access="private"/>
+    <aura:attribute name="displayFieldsArray" type="object[]" access="private"/>
+    
+    <table class="slds-table slds-table--bordered slds-no-row-hover slds-table--cell-buffer">
+        <thead>
+            <tr>
+                <aura:iteration items="{!v.displayFieldsArray}" var="field">
+                    <th class="slds-text-heading--label" scope="col">
+                        <div class="slds-truncate" id="{!field.describe.name}" onclick="{!c.changeSort}">{!field.describe.label}</div>
+                    </th>
+                </aura:iteration>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.results}" var="record">
+                <tr class="slds-hint-parent">                            
+                    <aura:iteration items="{!v.displayFieldsArray}" var="field" start="0" end="1">
+                        <td class="{!'slds-size--1-of-' + v.displayFieldsArray.length}" data-label="{!field.describe.label}">
+                            <a onclick="{!c.selectRecord}" id="{!record.Id}">
+                                <c:SingleFieldDisplayer record="{!record}" fieldDescribe="{!field}"/>
+                            </a>
+                        </td>
+                    </aura:iteration>
+                    <aura:iteration items="{!v.displayFieldsArray}" var="field" start="1">
+                        <!-- todo:size of based display fields array length -->
+                        <td class="{!'slds-size--1-of-' + v.displayFieldsArray.length}" data-label="{!field.describe.label}">
+                            <c:SingleFieldDisplayer record="{!record}" fieldDescribe="{!field}"/>
+                        </td>
+                    </aura:iteration>                            
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>

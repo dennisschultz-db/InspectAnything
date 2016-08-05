@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="when events happen in the inspection app">
+    <aura:attribute name="eventType" type="String"/>
+</aura:event>

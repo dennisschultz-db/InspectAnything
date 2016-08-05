@@ -1,0 +1,50 @@
+<aura:component controller="SimpleLightningInspection" implements="flexipage:availableForAllPageTypes,force:appHostable">
+
+<aura:attribute name="AssessmentId" type="string" required="false"/>
+<aura:attribute name="AltName" type="string" required="true" default="Assessment"/>
+
+<!--internal attributes-->
+<aura:attribute name="showAssessmentList" type="boolean" />  
+<aura:attribute name="doneQuestions" type="boolean" />          
+<aura:attribute name="actionDescribe" type="object" />
+<aura:attribute name="questionDescribe" type="object" />
+
+<aura:attribute name="questions" type="object[]" />
+
+<ltng:require scripts="{!$Resource.PRL_lodash}" afterScriptsLoaded="{!c.doInit}"/>    
+<aura:handler event="c:InspectionEvent" action="{!c.handleQuestionUpdate}"/> 
+<aura:handler event="c:recordSelectedEvent" action="{!c.changeAssessment}"/> 
+
+<!-- attempts to handle/prevent refreshing-->
+
+<aura:handler name="onSaveSuccess" event="force:recordSaveSuccess" action="{!c.handleSaveSuccess}"/>
+
+<!-- view of questions once an assessment is selected-->
+
+    <!-- view of the assessment list selector -->
+    <aura:if isTrue="{!v.showAssessmentList}">
+        <!--c:RawSoqlToList objectType="Inspection__c" soql="select Name, Equipment__r.Name from Inspection__c" selectBehavior="record as event"/-->
+        <c:LightningDataTable results="{!v.assessments}" displayFields="Name" sObjectType="Inspection__c"/>
+    </aura:if>
+    
+    <aura:if isTrue="{!!v.showAssessmentList}">
+        <div class="slds-box">
+            <aura:if isTrue="{!v.doneQuestions}">
+                <div class="slds-float--right slds-text-heading--small">
+                    {!(v.doneQuestions*100 - (v.doneQuestions*100 % v.totalQuestions)) /v.totalQuestions }%
+                </div> 
+            </aura:if>
+            
+            <span class="slds-text-heading--small">
+                {!v.AltName}: {!v.assessmentName} &nbsp;
+            </span>
+            <button type="button" onclick="{!c.showAssessmentList}" class="slds-button slds-button--small slds-button--neutral">Back to List</button>                    
+        </div>
+        
+        <!-- list of questions-->
+        <aura:iteration items="{!v.questions}" var="q">
+            <c:LightningInspectionQuestion question="{!q}" questionDescribe="{!v.questionDescribe}"/>
+        </aura:iteration>
+    </aura:if>
+
+</aura:component>
