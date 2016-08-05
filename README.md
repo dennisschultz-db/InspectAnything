@@ -1,7 +1,12 @@
+<a href="https://githubsfdeploy.herokuapp.com?owner=mshanemc&repo=LightningInspection">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
+</a>
+
 ###Objects:
 
-Inspection__c (a set of steps)
-Inspection_Step__c (the step or question)
+* Inspection__c (a set of steps)
+* Inspection_Step__c (the step or question)
 
 ###Components
 LightningInspectionQuestionList -- the main component that you'll interact with.  It contains/manages the following
