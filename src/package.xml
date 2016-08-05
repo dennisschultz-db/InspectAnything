@@ -10,7 +10,6 @@
         <members>LightningInspectionQuestion</members>
         <members>LightningInspectionQuestionList</members>
         <members>SingleFieldDisplayer</members>
-        <members>LightningDataTable</members>
         <name>AuraDefinitionBundle</name>
     </types>
     <types>
