@@ -1,0 +1,20 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" 
+                access="global" controller="PowerRelatedListCtrl">
+    
+    <aura:attribute name="displayFields" type="string" required="true" default="Name, Phone"/>
+    <aura:attribute name="objectType" type="string" required="true" default="Account"/>
+    <aura:attribute name="editableFields" type="string" required="false" default=""/>
+    <aura:attribute name="soqlWhere" type="string" required="false"/>
+    <aura:attribute name="onlyMine" type="boolean" required="false" default="false"/>
+    
+    <aura:attribute name="results" type="object[]"/>
+    <aura:attribute name="resultsBack" type="boolean" default="false" access="private"/>
+
+    
+    <ltng:require scripts="{!$Resource.PRL_lodash}" afterScriptsLoaded="{!c.doInit}"/>
+
+    <aura:if isTrue="{!v.resultsBack}">
+    	<c:LightningDataTable results="{!v.results}" displayFields="{!v.displayFields}" 
+                              editableFields="{!v.editableFields}" sObjectType="{!v.objectType}" />
+    </aura:if>            
+</aura:component>

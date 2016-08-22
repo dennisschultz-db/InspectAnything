@@ -1,0 +1,10 @@
+<design:component>
+    <design:attribute name="AltName" label="alternate name" description="What do you call these (inspections/assessments/audits/etc)?"/>                           
+    <design:attribute name="groupByCategory" label="Group by Category" description="Allows groupings by category"/>                           
+    <design:attribute name="inspectionFields" label="fields to show on inspection list" description="What fields do we show in the inspection selection table (comma separated list ex: Name, Equipment__r.Name)"/>
+    <design:attribute name="soqlWhere" label="where clause" 
+                      description="Adds to the query generated from the inspection fields.  Ex: Status__c != 'Completed'"/>  
+
+    <design:attribute name="feedLabel" label="Feed Button Label" description="What does the button that clicks you to the question's feed say?"/>  
+    <design:attribute name="onlyMine" label="Only show records that belong to me" />    
+</design:component>

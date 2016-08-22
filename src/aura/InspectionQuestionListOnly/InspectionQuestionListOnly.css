@@ -1,0 +1,18 @@
+.THIS .slds-card__header.category {   
+	margin-top: 0px;
+    margin-bottom: 0px;
+    padding-bottom: 0.4rem;    
+    padding-top: 0.4rem;    
+}
+
+.THIS .slds-card {
+    margin-top:0.5rem;
+}
+
+.THIS .slds-card__body--inner{
+    padding-left: 1rem;
+    padding-right:1rem;
+}
+.THIS .slds-card:last-of-type {
+	margin-bottom:0.5rem;
+}

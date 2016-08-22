@@ -1,0 +1,14 @@
+<aura:component implements="force:hasRecordId,flexipage:availableForRecordHome" access="global" >
+	
+    <aura:attribute name="recordId" type="Id" />
+
+    <!--all attributes are passthrough-->
+    <aura:attribute name="AltName" type="string" required="true" default="Assessment"/>
+    <aura:attribute name="groupByCategory" type="boolean" required="true" default="false"/>
+    <aura:attribute name="feedLabel" type="string" default="Photo Feed"/>
+    
+    
+    <c:InspectionQuestionListOnly AssessmentId="{!v.recordId}" groupByCategory="{!v.groupByCategory}" 
+                     feedLabel="{!v.feedLabel}" AltName="{!v.AltName}" showHeader="false"/>
+    
+</aura:component>

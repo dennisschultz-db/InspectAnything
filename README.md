@@ -1,23 +1,10 @@
-<a href="https://githubsfdeploy.herokuapp.com?owner=mshanemc&repo=LightningInspection">
-  <img alt="Deploy to Salesforce"
-       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
-</a>
+# InspectAnything
 
-###Objects:
+This app is for inspections/assessments/surveys/audits/checklists/etc.
 
-* Inspection__c (a set of steps)
-* Inspection_Step__c (the step or question)
+It uses Lightning Components, aimed for Salesforce1 or LightningExperience context.
 
-###Components
-LightningInspectionQuestionList -- the main component that you'll interact with.  It contains/manages the following
+Treat this as code you found on the side of the road, with no commitment of support from Salesforce or me, though I do appreciate PRs and issues opened.
 
-* LightningDataTable : used to present a list of the inspections that you can select from
-  * this contains SingleFieldDisplayer to dynamically display the various field types in the table
-* LightningInspectionQuestion : the indiviudal question/step
-
-###Events
-
-* InspectionEvent : thrown by the Question, handled by the QuesitonList to let it recalculate the % complete
-
-###Classes
-SimpleLightningInspection -- apex backend for the components
+full documentation here: (Quip)
+https://salesforce.quip.com/IstyAvMhOMbB

@@ -1,0 +1,85 @@
+<aura:component controller="LightningInspection">
+    
+    <aura:attribute name="AssessmentId" type="string" required="false"/>
+    <aura:attribute name="AltName" type="string" required="false" default="Assessment"/>
+    <aura:attribute name="groupByCategory" type="boolean" required="false" default="false"/>
+    <aura:attribute name="feedLabel" type="string" default="Photo Feed"/>
+    <aura:attribute name="showHeader" type="boolean" default="false"/>
+    
+    <!--internal attributes-->
+    <aura:attribute name="showAssessmentList" type="boolean" default="true"/>  
+    <aura:attribute name="doneQuestions" type="boolean" />          
+    <aura:attribute name="actionDescribe" type="object" />
+    <aura:attribute name="questionDescribe" type="object" />
+    <aura:attribute name="assessmentName" type="string" />  
+    <aura:attribute name="totalQuestions" type="integer" />
+    
+    <aura:attribute name="qByCat" type="object[]"/>
+    <aura:attribute name="selectedCat" type="string" />  
+    <aura:attribute name="questions" type="object[]" />
+    <aura:attribute name="reviewComplete" type="boolean" default="false" />
+    
+    <ltng:require scripts="{!$Resource.PRL_lodash}" afterScriptsLoaded="{!c.doInit}"/>    
+    <aura:handler event="c:InspectionEvent" action="{!c.handleQuestionUpdate}"/> 
+    
+    <div class="{!v.AssessmentId ? 'slds-show' : 'slds-hide'}"> <!--this div is necessary for css styling reasons-->                
+        
+        <!--header section-->
+        <div class="{!v.showHeader ? 'slds-box slds-m-bottom--small' : 'slds-hide'}">            
+            <div class="{!v.doneQuestions ? 'slds-show' : 'slds-hide'}">
+                <div class="slds-float--right slds-text-heading--small">
+                    {!(v.doneQuestions*100 - (v.doneQuestions*100 % v.totalQuestions)) /v.totalQuestions }%
+                </div> 
+            </div>
+            <span class="slds-text-heading--small">
+                {!v.AltName}: <a onclick="{!c.nav}">{!v.assessmentName}</a>
+            </span>
+			<span>
+                <button type="button" onclick="{!c.showAssessmentList}" class="slds-button slds-button--neutral slds-m-left--small">Back</button>                                    
+            </span>            
+        </div>
+        
+        <!-- view with categories -->
+        <div class="{!v.groupByCategory ? 'slds-show' : 'slds-hide'}">
+            <aura:iteration items="{!v.qByCat}" var="cat">
+                <div class="slds-card category slds-theme--default" id="{!cat.Name}">
+                    <div class="slds-card__header category slds-theme--inverse" id="{!cat.Name}" onclick="{!c.selectCat}">                            
+                        <h2 id="{!cat.Name}">
+                            <span class="slds-float--right">{!cat.doneQuestions} of {!cat.totalQuestions}</span>
+                            {!cat.Name}
+                        </h2>
+                        <div class="slds-clearfix"></div>
+                    </div>
+                    <div class="{!v.selectedCat==cat.Name ? 'slds-show slds-card__body' : 'slds-hide'}">
+                        <div class="slds-card__body--inner">
+                            <aura:iteration items="{!cat.Questions}" var="q">
+                                <c:InspectionQuestion question="{!q}" actionDescribe="{!v.actionDescribe}" questionDescribe="{!v.questionDescribe}" feedLabel="{!v.feedLabel}"/>
+                            </aura:iteration>
+                        </div>
+                    </div>
+                </div>
+            </aura:iteration>
+        </div>
+        
+        
+        <!-- view without categories-->
+        <div class="{!!v.groupByCategory ? 'slds-show' : 'slds-hide'}">
+            <aura:iteration items="{!v.questions}" var="q">
+                <c:InspectionQuestion question="{!q}" actionDescribe="{!v.actionDescribe}" questionDescribe="{!v.questionDescribe}" feedLabel="{!v.feedLabel}"/>
+            </aura:iteration>            
+        </div>
+        
+        <!--buttons at the bottom.  not used by default.  Functions are commented out, too-->
+        <div class="{!and(v.questions, v.doneQuestions == v.totalQuestions) ? 'slds-show' : 'slds-hide'}">
+            <div class="slds-align--absolute-center slds-m-top--medium">
+                <div class="{!!v.reviewComplete ? 'slds-show' : 'slds-hide'}">
+                    <!--button class="slds-button slds-button**brand" onclick="{!c.review}">Review</button-->                    
+                </div>                
+                <div class="{!v.reviewComplete ? 'slds-show' : 'slds-hide'}">                    
+                    <!--button class="slds-button slds-button**brand" onclick="{!c.viewReport}">View Report</button-->                    
+                </div>
+            </div>
+        </div> <!--end button section-->            
+    </div>
+    
+</aura:component>

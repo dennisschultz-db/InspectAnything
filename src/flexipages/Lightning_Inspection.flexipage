@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flexiPageRegions>
+        <componentInstances>
+            <componentInstanceProperties>
+                <name>AltName</name>
+                <value>Assessment</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>feedLabel</name>
+                <value>Photo Feed</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>groupByCategory</name>
+                <value>false</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>inspectionFields</name>
+                <value>Name, Percent_Complete__c</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>onlyMine</name>
+                <value>false</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>soqlWhere</name>
+                <value>recordTypeId != &apos;012410000000P5K&apos;</value>
+            </componentInstanceProperties>
+            <componentName>InspectionQuestionList</componentName>
+        </componentInstances>
+        <name>main</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <masterLabel>Lightning Inspection</masterLabel>
+    <pageTemplate>flexipage:defaultAppHomeTemplate</pageTemplate>
+    <quickActionList>
+        <quickActionListItems>
+            <quickActionName>New_Inspection</quickActionName>
+        </quickActionListItems>
+    </quickActionList>
+    <type>AppPage</type>
+</FlexiPage>

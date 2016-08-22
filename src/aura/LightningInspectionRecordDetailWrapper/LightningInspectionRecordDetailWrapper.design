@@ -1,0 +1,5 @@
+<design:component>
+    <design:attribute name="AltName" label="alternate name" description="What do you call these (inspections/assessments/audits/etc)?"/>                           
+    <design:attribute name="groupByCategory" label="Group by Category" description="Allows groupings by category"/>                               
+    <design:attribute name="feedLabel" label="Feed Button Label" description="What does the button that clicks you to the question's feed say?"/>  
+</design:component>

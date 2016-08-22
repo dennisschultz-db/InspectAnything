@@ -1,0 +1,29 @@
+<aura:component controller="LightningInspection" implements="flexipage:availableForAllPageTypes,force:appHostable">
+    
+    <aura:attribute name="AssessmentId" type="string" required="false"/>
+    <aura:attribute name="AltName" type="string" required="true" default="Assessment"/>
+    <aura:attribute name="groupByCategory" type="boolean" required="true" default="false"/>
+    <aura:attribute name="feedLabel" type="string" default="Photo Feed"/>
+    <aura:attribute name="inspectionFields" type="string" default="Name" required="true"/>
+    <aura:attribute name="soqlWhere" type="string" required="false" default="recordType.Name != 'Template'"/>
+    <aura:attribute name="onlyMine" type="boolean" required="false" default="false"/>
+    
+    <!--internal attributes-->
+    <aura:handler event="ltng:selectSObject" action="{!c.changeAssessment}"/> 
+    
+    <div> <!--this div is necessary for css styling reasons-->        
+        <!-- view of the assessment list selector because we don't have a record -->
+        <aura:if isTrue="{!!v.AssessmentId}">            
+            <c:soqlTable displayFields="{!v.inspectionFields}" objectType="Inspection__c" 
+                         soqlWhere="{!v.soqlWhere}" onlyMine="{!v.onlyMine}"/>
+        </aura:if>
+        
+        <!-- view of questions once an assessment is selected-->        
+        <aura:if isTrue="{!v.AssessmentId}">
+            <c:InspectionQuestionListOnly AssessmentId="{!v.AssessmentId}" AltName="{!v.AltName}" 
+                                          groupByCategory="{!v.groupByCategory}" 
+                                          feedLabel="{!v.feedLabel}" showHeader="true"/>
+        </aura:if><!-- view of question section-->        
+    </div>
+    
+</aura:component>

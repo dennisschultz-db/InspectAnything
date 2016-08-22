@@ -1,0 +1,10 @@
+.THIS .slds-card__header{
+    padding-top: .4rem;
+    padding-bottom: 0.4rem;
+}
+
+.THIS .slds-card__body--inner{
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right:1rem;
+}

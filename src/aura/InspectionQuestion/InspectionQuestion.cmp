@@ -1,0 +1,74 @@
+<aura:component controller="LightningInspection">
+    <aura:attribute name="question" type="Inspection_Step__c" required="true"/> 
+    <aura:attribute name="actionDescribe" type="object" required="true" />
+    <aura:attribute name="questionDescribe" type="object" required="true"/>
+    <aura:attribute name="feedLabel" type="string" default="Photo Feed"/>
+    
+    <aura:attribute name="buttonList" type="object[]" />
+    <aura:attribute name="fieldType" type="string" />
+    <aura:attribute name="localTextResponse" type="string" />
+    <aura:attribute name="response" type="string" />
+    <aura:attribute name="actionFieldDescribe" type="object" />
+    <aura:attribute name="newAction" type="object"/>
+    <aura:attribute name="action" type="boolean" default="false"/> <!--show/hide toggle-->
+    <aura:attribute name="panelStyle" type="string" required="false" default="slds-card__header slds-theme--inverse"/>
+    
+    <ltng:require scripts="{!$Resource.PRL_lodash}" afterScriptsLoaded="{!c.doInit}" />     
+    <aura:registerEvent name="InspectionEvent" type="c:InspectionEvent"/>
+    
+    <div class="slds-card">
+        <div class="{!v.panelStyle}">
+            <h2>{!v.question.Step_Number__c}. {!v.question.Name}</h2>
+        </div>
+        <div class="slds-card__body">
+            <div class="slds-card__body--inner">
+                <!-- if the field is a picklist-->
+                <div class="slds-clearfix">
+                    <div><aura:unescapedHtml value="{!v.question.Instructions__c}"  /> </div>                   
+                </div>
+                
+                <div class="{!v.fieldType == 'picklist' ? 'slds-show' : 'slds-hide'}">
+                    <div class="slds-button-group" role="group">
+                        <aura:iteration items="{!v.buttonList}" var="button">
+                            <button type="button" title="{!button.value}" onclick="{!c.setResponse}" class="{!v.response == button.label ? 'slds-button slds-button--brand' : 'slds-button slds-button--neutral'}">{!button.label}</button>        
+                        </aura:iteration>
+                    </div>
+                </div>
+                
+                <!-- if it's just text, comments aren't necessary.  Take out of aura:if if you feel differently-->
+                <div class="{!v.fieldType != 'picklist' ? 'slds-show' : 'slds-hide'}">
+                    <ui:inputTextArea class="slds-textarea" value="{!v.localTextResponse}" rows="2" placeholder="Response" updateOn="keyup" blur="{!c.setTextResponse}"/>                                                  
+                </div>
+                
+                
+                <div class="{!!v.action ? 'slds-show' : 'slds-hide'}">
+                    <div class="{!v.fieldType == 'picklist' ? 'slds-show' : 'slds-hide'}">
+                        <ui:inputTextArea class="slds-textarea" value="{!v.question.Comments__c}" rows="2" placeholder="Comments" updateOn="keyup" blur="{!c.setComment}"/>                                                                      
+                    </div>
+                    
+                    <!--show this outside of action context-->
+                    <div class="slds-button-group" role="group">
+                        <button type="button" class="slds-button slds-button--neutral" onclick="{!c.navFeed}">{!v.feedLabel}</button>
+                        <button type="button" class="slds-button slds-button--neutral" onclick="{!c.showAction}">Add Action</button>
+                    </div>
+                </div>
+                
+                <!--action context.  User has selected "add action"-->
+                <div class="{!v.action ? 'slds-show' : 'slds-hide'}" >                    
+                    <ui:inputSelect class="slds-select" aura:id="levels" label="Work Order Type" value="{!v.newAction.TaskSubtype}" updateOn="change">
+                        <aura:iteration items="{!v.actionFieldDescribe.picklistOptions}" var="option">
+                            <ui:inputSelectOption text="{!option.value}" label="{!option.label}"/>
+                        </aura:iteration>
+                    </ui:inputSelect>
+                    <ui:inputText class="slds-input" value="{!v.newAction.Subject}" placeholder="action to take" updateOn="change"/>
+                    
+                    <div class="slds-button-group" role="group">
+                        <button class="slds-button slds-button--neutral" onclick="{!c.saveAction}">Create Action</button>
+                        <button class="slds-button slds-button--neutral" onclick="{!c.cancelAction}">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</aura:component>
