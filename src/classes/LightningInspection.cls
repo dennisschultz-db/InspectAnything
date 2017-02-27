@@ -196,7 +196,7 @@ public class LightningInspection {
     //creates sample data
     public static void CreateExample(){
         Inspection__c i = new Inspection__c();
-        i.recordTypeId = [select id from recordType where name = 'Template'][0].Id;
+        i.recordTypeId = [select id from recordType where name = 'Template' and SobjectType = 'Inspection__c'][0].Id;
         i.Name = 'Dog Inspection';
         insert i;
         
@@ -204,7 +204,7 @@ public class LightningInspection {
         
         Inspection_Step__c is0 = new Inspection_Step__c();
         is0.Instructions__c = 'What is the dog\'s name?';
-        is0.RecordTypeId = [select id from RecordType where developername = 'Text_Response'][0].Id;
+        is0.RecordTypeId = [select id from RecordType where developername = 'Text_Response' and SobjectType = 'Inspection_Step__c'][0].Id;
         is0.Category__c  = 'Basic Info';
         is0.Inspection__c = I.Id;
         is0.Step_Number__c = 1;
@@ -214,7 +214,7 @@ public class LightningInspection {
         
         Inspection_Step__c is1 = new Inspection_Step__c();
         is1.Instructions__c = 'On a scale from 1 to 5, where 5 is the most friendly, how friendly is the dog?';
-        is1.RecordTypeId = [select id from RecordType where developername = 'x5_to_1'][0].Id;
+        is1.RecordTypeId = [select id from RecordType where developername = 'x5_to_1' and SobjectType = 'Inspection_Step__c'][0].Id;
         is1.Category__c  = 'Basic Info';
         is1.Inspection__c = I.Id;
         is1.Green_Text__c = '4,5'; 
@@ -227,7 +227,7 @@ public class LightningInspection {
         
         Inspection_Step__c is2 = new Inspection_Step__c();
         is2.Instructions__c = 'Do you see any fleas?';
-        is2.RecordTypeId = [select id from RecordType where developername = 'Yes_No'][0].Id;
+        is2.RecordTypeId = [select id from RecordType where developername = 'Yes_No' and SobjectType = 'Inspection_Step__c'][0].Id;
         is2.Category__c  = 'Physical';
         is2.Inspection__c = I.Id;
         is2.Green_Text__c = 'No'; 
@@ -239,7 +239,7 @@ public class LightningInspection {
         
         Inspection_Step__c is3 = new Inspection_Step__c();
         is3.Instructions__c = 'Does the dog have a collar?';
-        is3.RecordTypeId = [select id from RecordType where developername = 'Yes_No'][0].Id;
+        is3.RecordTypeId = [select id from RecordType where developername = 'Yes_No' and SobjectType = 'Inspection_Step__c'][0].Id;
         is3.Category__c  = 'Physical';
         is3.Inspection__c = I.Id;
         is3.Green_Text__c = 'Yes'; 
