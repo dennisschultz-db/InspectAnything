@@ -7,6 +7,7 @@
     <aura:attribute name="buttonList" type="object[]" />
     <aura:attribute name="fieldType" type="string" />
     <aura:attribute name="localTextResponse" type="string" />
+    <aura:attribute name="localIntegerResponse" type="integer" default="16"/>
     <aura:attribute name="response" type="string" />
     <aura:attribute name="actionFieldDescribe" type="object" />
     <aura:attribute name="newAction" type="object"/>
@@ -22,11 +23,11 @@
         </div>
         <div class="slds-card__body">
             <div class="slds-card__body--inner">
-                <!-- if the field is a picklist-->
                 <div class="slds-clearfix">
                     <div><aura:unescapedHtml value="{!v.question.Instructions__c}"  /> </div>                   
                 </div>
                 
+                <!-- if the field is a picklist-->
                 <div class="{!v.fieldType == 'picklist' ? 'slds-show' : 'slds-hide'}">
                     <div class="slds-button-group" role="group">
                         <aura:iteration items="{!v.buttonList}" var="button">
@@ -34,9 +35,14 @@
                         </aura:iteration>
                     </div>
                 </div>
-                
+
+                <!-- if the field is an integer-->                
+                <div class="{!v.fieldType == 'double' ? 'slds-show' : 'slds-hide'}">
+                    <ui:inputNumber class="slds-input" value="{!v.localIntegerResponse}" placeholder="Integer Response" updateOn="keyup" blur="{!c.setIntegerResponse}"/>                                                  
+                </div>
+
                 <!-- if it's just text, comments aren't necessary.  Take out of aura:if if you feel differently-->
-                <div class="{!v.fieldType != 'picklist' ? 'slds-show' : 'slds-hide'}">
+                <div class="{!and(v.fieldType != 'picklist', v.fieldType != 'double') ? 'slds-show' : 'slds-hide'}">
                     <ui:inputTextArea class="slds-textarea" value="{!v.localTextResponse}" rows="2" placeholder="Response" updateOn="keyup" blur="{!c.setTextResponse}"/>                                                  
                 </div>
                 

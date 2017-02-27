@@ -2,9 +2,17 @@
     doInit : function(component, event, helper) {
         //console.log("value is:")
         //console.log(component.get("v.question." + component.get("v.question.Response_Field__c")))
-        component.set("v.localTextResponse", component.get("v.question." + component.get("v.question.Response_Field__c")));
 
+        // setButtons determines the fieldType, so do it first
         helper.setButtons(component);
+
+        // Convert integer to string for display
+        if (component.get("v.fieldType") == "double") {
+            component.set("v.localIntegerResponse", component.get("v.question." + component.get("v.question.Response_Field__c")));
+        } else {
+            component.set("v.localTextResponse", component.get("v.question." + component.get("v.question.Response_Field__c")));
+        }
+
         //sets the field describe for work order types
         component.set("v.actionFieldDescribe", _.find(component.get("v.actionDescribe").fields,  { "name": "TaskSubtype"}));
         
@@ -26,6 +34,15 @@
             "recordId" : component.get("v.question.Id"),
             "fieldToUpdate" : component.get("v.question.Response_Field__c"),
             "fieldValue" : component.get("v.localTextResponse")
+        }
+        helper.setFieldAndUpdateLocalStuff(component, params);        
+    },
+    
+    setIntegerResponse: function (component, event, helper){        
+        var params = {
+            "recordId" : component.get("v.question.Id"),
+            "fieldToUpdate" : component.get("v.question.Response_Field__c"),
+            "fieldValue" : component.get("v.localIntegerResponse")
         }
         helper.setFieldAndUpdateLocalStuff(component, params);        
     },

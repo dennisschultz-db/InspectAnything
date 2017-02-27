@@ -25,6 +25,8 @@ public class LightningInspection {
             field.put('name', descField.getName());
             field.put('label', descField.getLabel());
             
+            System.debug('Field: ' + field);
+            
             //if a field is a picklist, I want the values
             if (field.get('type')=='picklist'){
                 List<Schema.PicklistEntry> pickListValues = descField.getPickListValues();
@@ -100,7 +102,7 @@ public class LightningInspection {
 	}*/
     
     @AuraEnabled 
-    public static string updateAnyStringField (string recordId, string fieldToUpdate, string fieldValue){            
+    public static string updateAnyField (string recordId, string fieldToUpdate, string fieldValue, string fieldType){            
         Id rId = id.valueOf(recordId);
         sObject so = rid.getSObjectType().newSObject(rid);
         so.put(fieldToUpdate, fieldValue);

@@ -1,6 +1,6 @@
 ({    
     setFieldAndUpdateLocalStuff : function (component, params){
-    	var action = component.get("c.updateAnyStringField");
+    	var action = component.get("c.updateAnyField");
         action.setParams(params);
         action.setCallback(this, function (a){
             //TODO: handle errors/validations with a toast
@@ -23,15 +23,16 @@
         
         //get the index of the matching field
         var fieldIndex = _.findIndex(questionDescribe.fields, {'name': component.get("v.question.Response_Field__c")}); 
-
+        console.debug('questiondescribe ' + questionDescribe);
         //what type of field are we dealing with?
         component.set("v.fieldType", questionDescribe.fields[fieldIndex].type);
         
         if (questionDescribe.fields[fieldIndex].type==='picklist'){
         	var picklistOptions = questionDescribe.fields[fieldIndex].picklistOptions;
         	component.set("v.buttonList", picklistOptions);    
-            component.set("v.response", component.get("v.question." + component.get("v.question.Response_Field__c")));
         }
+        // Moved outside the 'if' so it works for all fieldTypes
+        component.set("v.response", component.get("v.question." + component.get("v.question.Response_Field__c")));
     },
     
     fireEvent:function (){
