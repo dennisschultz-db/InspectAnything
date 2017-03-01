@@ -102,7 +102,7 @@ public class LightningInspection {
 	}*/
     
     @AuraEnabled 
-    public static string updateAnyField (string recordId, string fieldToUpdate, string fieldValue, string fieldType){            
+    public static string updateAnyField (string recordId, string fieldToUpdate, string fieldValue){            
         Id rId = id.valueOf(recordId);
         sObject so = rid.getSObjectType().newSObject(rid);
         so.put(fieldToUpdate, fieldValue);
@@ -250,6 +250,19 @@ public class LightningInspection {
         is3.Name = 'Collar';
         
         steps.add(is3);
+        
+        Inspection_Step__c is4 = new Inspection_Step__c();
+        is4.Instructions__c = 'How many legs does the dog have?';
+        is4.RecordTypeId = [select id from RecordType where developername = 'Integers' and SobjectType = 'Inspection_Step__c'][0].Id;
+        is4.Category__c  = 'Physical';
+        is4.Inspection__c = I.Id;
+        is4.Green_Text__c = '4'; 
+        is4.Yellow_Text__c = '3'; 
+        is4.Red_Text__c = '1,2'; 
+        is4.Step_Number__c = 5;
+        is4.Name = 'Legs';
+        
+        steps.add(is4);
         
         insert steps;
     }

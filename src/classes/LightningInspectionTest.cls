@@ -38,7 +38,7 @@ public class LightningInspectionTest {
         LightningInspection.CreateExample();
         Inspection__c template = [select id from inspection__c];
         //lightningInspection.updateAnyStringField(recordId, fieldToUpdate, fieldValue)
-        LightningInspection.updateAnyStringField(template.Id, 'Name', 'Updated Name');
+        LightningInspection.updateAnyField(template.Id, 'Name', 'Updated Name');
     }
     
     @isTest private static void testDescribe(){

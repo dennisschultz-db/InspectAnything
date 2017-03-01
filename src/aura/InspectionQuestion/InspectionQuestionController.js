@@ -38,6 +38,38 @@
         helper.setFieldAndUpdateLocalStuff(component, params);        
     },
     
+    decrementValue: function (component, event, helper){ 
+        var currVal = component.get("v.localIntegerResponse");
+        if (isNaN(currVal)) {
+            // No value has yet been set, so start from one (so decremented value is zero)
+            currVal = 1;
+        }
+        var newVal = currVal - 1;
+        component.set("v.localIntegerResponse", newVal);
+        var params = {
+            "recordId" : component.get("v.question.Id"),
+            "fieldToUpdate" : component.get("v.question.Response_Field__c"),
+            "fieldValue" : newVal
+        };
+        helper.setFieldAndUpdateLocalStuff(component, params);        
+    },
+    
+    incrementValue: function (component, event, helper){ 
+        var currVal = component.get("v.localIntegerResponse");
+        if (isNaN(currVal)) {
+            // No value has yet been set, so start from zero
+            currVal = 0;
+        }
+        var newVal = currVal + 1;
+        component.set("v.localIntegerResponse", newVal);
+        var params = {
+            "recordId" : component.get("v.question.Id"),
+            "fieldToUpdate" : component.get("v.question.Response_Field__c"),
+            "fieldValue" : newVal
+        };
+        helper.setFieldAndUpdateLocalStuff(component, params);        
+    },
+    
     setIntegerResponse: function (component, event, helper){        
         var params = {
             "recordId" : component.get("v.question.Id"),

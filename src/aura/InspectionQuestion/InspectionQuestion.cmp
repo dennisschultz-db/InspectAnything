@@ -38,7 +38,11 @@
 
                 <!-- if the field is an integer-->                
                 <div class="{!v.fieldType == 'double' ? 'slds-show' : 'slds-hide'}">
-                    <ui:inputNumber class="slds-input" value="{!v.localIntegerResponse}" placeholder="Integer Response" updateOn="keyup" blur="{!c.setIntegerResponse}"/>                                                  
+                    <div class="slds-button-group" role="group">
+                        <button type="button" title="down" class="slds-button slds-button--brand slds-m-around--small" onclick="{!c.decrementValue}">&lt;</button>
+                        <input type="text" title="{!v.localIntegerResponse}" class="slds-input slds-size--1-of-4 slds-m-around--small" blur="{!c.setIntegerResponse}" value="{!v.localIntegerResponse}"></input>
+                        <button type="button" title="up" class="slds-button slds-button--brand slds-m-around--small" onclick="{!c.incrementValue}">&gt;</button>
+                    </div>
                 </div>
 
                 <!-- if it's just text, comments aren't necessary.  Take out of aura:if if you feel differently-->
